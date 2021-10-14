@@ -1,4 +1,4 @@
-package com.leandro.rest.webservices.restfulwebservices;
+package com.leandro.rest.webservices.restfulwebservices.helloworld;
 
 public class HelloWorldBean {
 
