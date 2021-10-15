@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.leandro.rest.webservices.restfulwebservices.user.UserNotFoundException;
+import com.leandro.rest.webservices.restfulwebservices.user.UserBadRequestException;
 
 @ControllerAdvice
 @RestController
@@ -33,6 +34,16 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 				request.getDescription(false));
 		
 		return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+
+	}
+	
+	@ExceptionHandler(UserBadRequestException.class)
+	public final ResponseEntity<Object> handleUserUnprocessableException(UserBadRequestException ex, WebRequest request) throws Exception {
+
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+				request.getDescription(false));
+		
+		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
 
 	}
 }

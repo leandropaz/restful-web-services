@@ -36,6 +36,9 @@ public class UserResource {
 
 	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@RequestBody User user) {
+		if (user.getName() == null || user.getBirthDate() == null) {
+			throw new UserBadRequestException("Name and birth date are required.");
+		}
 		User savedUser = service.save(user);
 
 		URI location = ServletUriComponentsBuilder
